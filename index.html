@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Health Innovation — AI-Powered Solutions for Global Health</title>
+  <meta name="description" content="We build intelligent software that transforms healthcare delivery, accelerates medical research, and improves health outcomes worldwide.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --foreground: #0a0a0a;
+      --muted: #6b7280;
+      --bg: #ffffff;
+      --surface: #f9fafb;
+      --accent: #2563eb;
+      --accent-light: #dbeafe;
+      --border: #e5e7eb;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; color: var(--foreground); background: var(--bg); -webkit-font-smoothing: antialiased; line-height: 1.5; }
+    ::selection { background: var(--accent-light); color: var(--foreground); }
+    img { max-width: 100%; height: auto; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font-family: inherit; }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    @keyframes ping { 75%, 100% { transform: scale(2); opacity: 0; } }
+
+    .anim { opacity: 0; transform: translateY(24px); transition: opacity 0.6s cubic-bezier(0.25,0.1,0.25,1), transform 0.6s cubic-bezier(0.25,0.1,0.25,1); }
+    .anim.visible { opacity: 1; transform: translateY(0); }
+    .s1{transition-delay:.05s}.s2{transition-delay:.1s}.s3{transition-delay:.15s}.s4{transition-delay:.2s}
+    .s5{transition-delay:.25s}.s6{transition-delay:.3s}.s7{transition-delay:.35s}.s8{transition-delay:.4s}
+
+    /* ===== BUTTONS ===== */
+    .btn{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;border-radius:9999px;transition:all .2s}
+    .btn:active{transform:scale(.98)}
+    .btn-p{background:var(--foreground);color:#fff;padding:12px 24px}
+    .btn-p:hover{background:rgba(10,10,10,.85);box-shadow:0 8px 25px rgba(0,0,0,.15);transform:scale(1.03)}
+    .btn-s{border:1px solid var(--border);color:var(--foreground);padding:12px 24px}
+    .btn-s:hover{background:var(--surface);border-color:rgba(10,10,10,.2);box-shadow:0 4px 15px rgba(0,0,0,.08);transform:scale(1.03)}
+    .btn-w{background:#fff;color:var(--foreground);padding:10px 20px}
+    .btn-w:hover{background:rgba(255,255,255,.9);box-shadow:0 8px 25px rgba(0,0,0,.15);transform:scale(1.03)}
+    .btn-g{border:1px solid rgba(255,255,255,.2);color:#fff;padding:10px 20px}
+    .btn-g:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.4);transform:scale(1.03)}
+
+    /* ===== NAV ===== */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+    .nav-in{max-width:1280px;margin:0 auto;padding:0 24px;height:80px;display:flex;align-items:center;justify-content:space-between}
+    .nav-logo{height:72px;width:auto;transition:opacity .2s}
+    .nav-logo:hover{opacity:.8}
+    .nav-lnk{display:flex;align-items:center;gap:32px}
+    .nl{font-size:14px;color:var(--muted);transition:color .2s;position:relative}
+    .nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--foreground);transition:width .3s}
+    .nl:hover{color:var(--foreground)}.nl:hover::after{width:100%}
+    .nav-btn{font-size:12px;background:var(--foreground);color:#fff;padding:8px 16px;border-radius:9999px;transition:all .2s}
+    .nav-btn:hover{background:rgba(10,10,10,.85);box-shadow:0 4px 12px rgba(0,0,0,.15);transform:scale(1.03)}
+    .mob-tog{display:none;padding:8px;border-radius:8px;transition:background .2s}.mob-tog:hover{background:var(--surface)}
+    .mob-nav{display:none;overflow:hidden;max-height:0;transition:max-height .3s;background:#fff;border-bottom:1px solid var(--border)}
+    .mob-nav.open{max-height:300px;display:block}
+    .mob-nav-in{padding:16px 24px;display:flex;flex-direction:column;gap:16px}
+    .mob-nl{font-size:14px;color:var(--muted)}
+    .mob-btn{display:block;text-align:center;font-size:14px;background:var(--foreground);color:#fff;padding:10px 16px;border-radius:9999px}
+
+    /* ===== HERO ===== */
+    .hero{padding:140px 24px 64px;text-align:center}
+    .hero-in{max-width:900px;margin:0 auto;animation:fadeInUp .6s cubic-bezier(.25,.1,.25,1) forwards}
+    .hero-lab{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--accent);margin-bottom:24px}
+    .hero-t{font-size:clamp(48px,8vw,96px);font-weight:800;letter-spacing:-.025em;line-height:1.05}
+    .hero-t .m{color:var(--muted)}
+    .hero-d{margin-top:32px;font-size:16px;color:var(--muted);max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7}
+    .hero-b{margin-top:40px;display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+    .play-w{margin-top:64px;display:flex;justify-content:center;animation:scaleIn .5s .3s cubic-bezier(.25,.1,.25,1) both}
+    .play-b{width:56px;height:56px;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;transition:all .2s}
+    .play-b:hover{border-color:var(--foreground);background:var(--surface);transform:scale(1.1);box-shadow:0 4px 15px rgba(0,0,0,.08)}
+    .play-b svg{color:var(--muted);margin-left:2px;transition:color .2s}.play-b:hover svg{color:var(--foreground)}
+
+    /* ===== PRODUCTS ===== */
+    .prod-s{padding:48px 24px 80px}.prod-in{max-width:1024px;margin:0 auto}
+    .sec-lab{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.2em;color:var(--muted);text-align:center;margin-bottom:20px}
+    .ftabs{display:flex;flex-wrap:wrap;justify-content:center;gap:4px;margin-bottom:32px}
+    .ftab{padding:6px 14px;border-radius:9999px;font-size:11px;font-weight:500;color:var(--muted);transition:all .2s}
+    .ftab:hover{color:var(--foreground)}.ftab.on{background:var(--foreground);color:#fff}.ftab:hover:not(.on){transform:scale(1.03)}
+    .pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .pcard{border-radius:12px;overflow:hidden;transition:all .2s;display:block}.pcard:hover{opacity:.9;transform:translateY(-2px)}
+    .pcard-in{aspect-ratio:16/10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:16px;position:relative}
+    .pcard-bg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.06}
+    .pcard-bg svg{width:90px;height:90px}
+    .pcard-c{position:relative;z-index:1;text-align:center;color:rgba(255,255,255,.8)}
+    .pcard-c svg{margin:0 auto 8px;width:22px;height:22px}
+    .pcard-n{color:#fff;font-weight:600;font-size:13px;line-height:1.3}
+    .pcard-t{color:rgba(255,255,255,.5);font-size:10px;margin-top:2px;line-height:1.3}
+
+    /* ===== STATS ===== */
+    .stat-s{padding:64px 24px}.stat-in{max-width:960px;margin:0 auto;border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 0}
+    .stat-g{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+    .stat-i{text-align:center;position:relative}
+    .stat-v{font-size:clamp(28px,4vw,48px);font-weight:800;letter-spacing:-.025em;font-variant-numeric:tabular-nums;display:inline-block;position:relative}
+    .stat-l{margin-top:6px;font-size:12px;color:var(--muted)}
+    .ldot{position:absolute;top:-2px;right:-10px;display:none}
+    .ldot-p{position:absolute;width:8px;height:8px;border-radius:50%;background:#34d399;opacity:.75;animation:ping 1s cubic-bezier(0,0,.2,1) infinite}
+    .ldot-s{position:relative;width:8px;height:8px;border-radius:50%;background:#10b981}
+
+    /* ===== FEATURES ===== */
+    .feat-s{padding:64px 24px;background:var(--surface)}.feat-in{max-width:1024px;margin:0 auto}
+    .feat-g{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .fcard{display:flex;gap:16px;padding:20px;border-radius:12px;background:#fff;border:1px solid var(--border)}
+    .ficon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .ficon svg{width:18px;height:18px}
+    .ftitle{font-weight:600;font-size:14px;margin-bottom:4px}
+    .fdesc{font-size:12px;color:var(--muted);line-height:1.6}
+
+    /* ===== CTA ===== */
+    .cta-s{padding:48px 24px 80px}.cta-in{max-width:1024px;margin:0 auto}
+    .cta-box{border-radius:16px;background:var(--foreground);color:#fff;padding:56px 40px;text-align:center}
+    .cta-t{font-size:clamp(20px,3vw,28px);font-weight:700;letter-spacing:-.015em}
+    .cta-d{margin-top:12px;color:rgba(255,255,255,.6);font-size:14px;max-width:420px;margin-left:auto;margin-right:auto}
+    .cta-b{margin-top:24px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+
+    /* ===== FOOTER ===== */
+    .ft{border-top:1px solid var(--border)}.ft-in{max-width:1024px;margin:0 auto;padding:40px 24px}
+    .ft-g{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:32px}
+    .ft-logo{height:60px;width:auto;margin-bottom:12px}
+    .ft-desc{font-size:12px;color:var(--muted);line-height:1.6;max-width:280px}
+    .ft-h{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.15em;color:var(--muted);margin-bottom:12px}
+    .ft-l{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;transition:color .2s}.ft-l:hover{color:var(--foreground)}
+    .ft-i{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .ft-bot{margin-top:32px;padding-top:24px;border-top:1px solid var(--border);text-align:center;font-size:11px;color:var(--muted)}
+
+    /* ===== MOBILE ===== */
+    @media(max-width:768px){
+      .nav-lnk{display:none}.mob-tog{display:block}
+      .mob-nav{display:block}
+      .hero{padding:120px 24px 48px}.hero-d{font-size:14px}
+      .pgrid{grid-template-columns:repeat(2,1fr);gap:6px}.pcard-t{display:none}
+      .stat-g{grid-template-columns:repeat(2,1fr);gap:24px}
+      .feat-g{grid-template-columns:1fr}
+      .ft-g{grid-template-columns:1fr;gap:24px}
+      .cta-box{padding:40px 24px}
+      .nav-in{height:64px}.nav-logo{height:48px}
+    }
+    @media(max-width:480px){.hero-t{font-size:40px}}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <nav class="nav-in">
+    <a href="#"><img src="Logo.png" alt="Global Health Innovation" class="nav-logo"></a>
+    <div class="nav-lnk">
+      <a href="#products" class="nl">Products</a>
+      <a href="GHA.html" class="nl">Data</a>
+      <a href="#features" class="nl">About</a>
+      <a href="#contact" class="nl">Contact</a>
+      <a href="#contact" class="nav-btn">Get Started</a>
+    </div>
+    <button class="mob-tog" aria-label="Menu" onclick="document.querySelector('.mob-nav').classList.toggle('open')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+  </nav>
+  <div class="mob-nav">
+    <div class="mob-nav-in">
+      <a href="#products" class="mob-nl" onclick="this.closest('.mob-nav').classList.remove('open')">Products</a>
+      <a href="GHA.html" class="mob-nl" onclick="this.closest('.mob-nav').classList.remove('open')">Data</a>
+      <a href="#features" class="mob-nl" onclick="this.closest('.mob-nav').classList.remove('open')">About</a>
+      <a href="#contact" class="mob-nl" onclick="this.closest('.mob-nav').classList.remove('open')">Contact</a>
+      <a href="#contact" class="mob-btn" onclick="this.closest('.mob-nav').classList.remove('open')">Get Started</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-in">
+    <p class="hero-lab">AI-Powered Solutions for Global Health</p>
+    <h1 class="hero-t">Innovate,<br><span class="m">everyone's</span><br><span class="m">healthier.</span></h1>
+    <p class="hero-d">We create intelligent software that transforms healthcare delivery, accelerates research, and improves outcomes worldwide.</p>
+    <div class="hero-b">
+      <a href="#products" class="btn btn-p">Explore Products <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      <a href="#features" class="btn btn-s">Learn More</a>
+    </div>
+  </div>
+  <div class="play-w"><button class="play-b"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21"/></svg></button></div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="prod-s" id="products">
+  <div class="prod-in">
+    <p class="sec-lab anim">Explore Our Products</p>
+    <div class="ftabs anim s1" id="fTabs"></div>
+    <div class="pgrid" id="pGrid"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stat-s">
+  <div class="stat-in anim">
+    <div class="stat-g">
+      <div class="stat-i"><span class="stat-v" data-t="50" data-d="0" data-sf="+" data-fl="0.3">0</span><span class="ldot"><span class="ldot-p"></span><span class="ldot-s"></span></span><p class="stat-l">Countries Served</p></div>
+      <div class="stat-i"><span class="stat-v" data-t="8" data-d="0" data-sf="" data-fl="0">0</span><p class="stat-l">AI Products</p></div>
+      <div class="stat-i"><span class="stat-v" data-t="2.14" data-d="2" data-sf="M+" data-fl="0.02">0</span><span class="ldot"><span class="ldot-p"></span><span class="ldot-s"></span></span><p class="stat-l">Patients Impacted</p></div>
+      <div class="stat-i"><span class="stat-v" data-t="99.7" data-d="1" data-sf="%" data-fl="0.15">0</span><span class="ldot"><span class="ldot-p"></span><span class="ldot-s"></span></span><p class="stat-l">Uptime SLA</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="feat-s" id="features">
+  <div class="feat-in">
+    <div class="anim" style="text-align:center;margin-bottom:48px">
+      <p class="sec-lab">Why Choose Us</p>
+      <h2 style="font-size:clamp(20px,3vw,28px);font-weight:700;letter-spacing:-.015em">Trusted by health systems worldwide</h2>
+    </div>
+    <div class="feat-g">
+      <div class="fcard anim s1"><div class="ficon" style="background:#2563eb12;color:#2563eb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div><div><p class="ftitle">Clinical-Grade AI</p><p class="fdesc">Our models are trained on diverse, validated datasets and meet rigorous clinical standards for accuracy and reliability.</p></div></div>
+      <div class="fcard anim s2"><div class="ficon" style="background:#05966912;color:#059669"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div><p class="ftitle">Privacy by Design</p><p class="fdesc">Built with HIPAA, GDPR, and international health data regulations at the core. Your data never leaves your control.</p></div></div>
+      <div class="fcard anim s3"><div class="ficon" style="background:#d9770612;color:#D97706"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"/></svg></div><div><p class="ftitle">Seamless Integration</p><p class="fdesc">Designed to work with existing hospital systems, EHRs, and health infrastructure through standard APIs and protocols.</p></div></div>
+      <div class="fcard anim s4"><div class="ficon" style="background:#7c3aed12;color:#7C3AED"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><p class="ftitle">Global Accessibility</p><p class="fdesc">Optimized for low-bandwidth environments and available in 50+ languages to reach underserved communities worldwide.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-s" id="contact">
+  <div class="cta-in"><div class="cta-box anim">
+    <h2 class="cta-t">Ready to transform healthcare?</h2>
+    <p class="cta-d">Partner with us to bring AI-powered health solutions to your organization or community.</p>
+    <div class="cta-b">
+      <a href="mailto:hatsac1512@gmail.com" class="btn btn-w">Get in Touch <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      <a href="#products" class="btn btn-g">View Products</a>
+    </div>
+    <p style="margin-top:20px;font-size:12px;color:rgba(255,255,255,.4)">hatsac1512@gmail.com &nbsp;|&nbsp; +84 983 544 345 &nbsp;|&nbsp; Hanoi, Vietnam</p>
+  </div></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ft">
+  <div class="ft-in">
+    <div class="ft-g">
+      <div><a href="#"><img src="Logo.png" alt="Global Health Innovation" class="ft-logo"></a><p class="ft-desc">We build intelligent software that transforms healthcare delivery, accelerates medical research, and improves health outcomes worldwide.</p></div>
+      <div><p class="ft-h">Navigation</p><a href="#products" class="ft-l">Products</a><a href="GHA.html" class="ft-l">Data</a><a href="#features" class="ft-l">About</a><a href="#contact" class="ft-l">Contact</a></div>
+      <div><p class="ft-h">Contact</p><p class="ft-i">hatsac1512@gmail.com</p><p class="ft-i">+84 983 544 345</p><p class="ft-i">Hanoi, Vietnam</p></div>
+    </div>
+    <div class="ft-bot">&copy; 2026 Global Health Innovation. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+const P=[
+  {n:"MediScan AI",t:"AI-Powered Medical Imaging Analysis",c:"Diagnostics",cl:"#2563EB",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><line x1="7" y1="12" x2="17" y2="12"/></svg>'},
+  {n:"PathogenWatch",t:"Real-Time Disease Surveillance",c:"Surveillance",cl:"#DC2626",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'},
+  {n:"DrugDiscover",t:"Accelerating Drug Discovery with AI",c:"Research",cl:"#7C3AED",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/></svg>'},
+  {n:"CareConnect",t:"Intelligent Telemedicine Platform",c:"Telemedicine",cl:"#059669",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4 2-6 1.5 3h5.27"/></svg>'},
+  {n:"GenomicsStudio",t:"Precision Medicine Analytics",c:"Genomics",cl:"#D97706",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M9 22c1.798-1.998 2.518-3.995 2.807-5.993"/><path d="M15 2c-1.798 1.998-2.518 3.995-2.807 5.993"/></svg>'},
+  {n:"MindBridge",t:"AI-Assisted Mental Health Support",c:"Mental Health",cl:"#EC4899",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>'},
+  {n:"HealthDataHub",t:"Secure Health Data Infrastructure",c:"Infrastructure",cl:"#0891B2",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>'},
+  {n:"TrialOptimize",t:"Smarter Clinical Trials",c:"Clinical Trials",cl:"#4F46E5",ic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M12 11h4"/><path d="M12 16h4"/><path d="M8 11h.01"/><path d="M8 16h.01"/></svg>'},
+];
+const cats=["All",...new Set(P.map(p=>p.c))];
+let ac="All";
+
+// Tabs
+const fT=document.getElementById("fTabs");
+fT.innerHTML=cats.map(c=>`<button class="ftab${c===ac?' on':''}" data-c="${c}">${c}</button>`).join('');
+fT.onclick=e=>{if(!e.target.dataset.c)return;fT.querySelectorAll('.ftab').forEach(t=>t.classList.remove('on'));e.target.classList.add('on');ac=e.target.dataset.c;render()};
+
+// Render
+function render(){
+  const g=document.getElementById("pGrid"),f=ac==="All"?P:P.filter(p=>p.c===ac);
+  g.innerHTML=f.map((p,i)=>`<a href="#" class="pcard anim s${i+1}" onclick="event.preventDefault()"><div class="pcard-in" style="background:${p.cl}"><div class="pcard-bg">${p.ic}</div><div class="pcard-c">${p.ic.replace('viewBox','width="22" height="22" viewBox')}<p class="pcard-n">${p.n}</p><p class="pcard-t">${p.t}</p></div></div></a>`).join('');
+  g.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+}
+
+// Scroll observer
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1,rootMargin:'-40px'});
+document.querySelectorAll('.anim').forEach(el=>obs.observe(el));
+
+// Counters
+const cObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,tgt=parseFloat(el.dataset.t),dec=parseInt(el.dataset.d||'0'),sf=el.dataset.sf||'',fl=parseFloat(el.dataset.fl||'0'),dur=2000,st=performance.now();
+function up(now){const p=Math.min((now-st)/dur,1),v=(1-Math.pow(1-p,3))*tgt;el.textContent=v.toFixed(dec)+sf;if(p<1)requestAnimationFrame(up);else{if(fl>0){let cur=tgt;setInterval(()=>{cur+=(Math.random()-.3)*fl;if(cur<tgt*.995)cur=tgt;el.textContent=cur.toFixed(dec)+sf},2000+Math.random()*1500);const d=el.parentElement.querySelector('.ldot');if(d)d.style.display='inline-block'}}}
+requestAnimationFrame(up);cObs.unobserve(el)})},{threshold:.3});
+document.querySelectorAll('.stat-v').forEach(el=>cObs.observe(el));
+
+render();
+</script>
+</body>
+</html>
